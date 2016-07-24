@@ -21,6 +21,7 @@ public class TrafficDbHelper extends SQLiteOpenHelper{
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedEntry.TABLE_NAME + " (" +
                     FeedEntry._ID + " INTEGER PRIMARY KEY," +
+                    FeedEntry.COLUMN_NAME_CAUSE_ACTION + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_VIOLATIONS_CODES + TEXT_TYPE + COMMA_SEP +
                     FeedEntry.COLUMN_NAME_VIOLATIONS_DATE + TEXT_TYPE + COMMA_SEP +

@@ -10,6 +10,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -24,10 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.iwf.photopicker.PhotoPicker;
+import me.iwf.photopicker.PhotoPreview;
 
 public class ScrollingActivity extends AppCompatActivity {
 
     EditText entry_id;
+    EditText cause_action;
     EditText violations_code1;
     EditText violations_code2;
     EditText violations_code3;
@@ -81,6 +84,7 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void setUpView() {
+        cause_action = (EditText) findViewById(R.id.cause_action);
         entry_id = (EditText) findViewById(R.id.entry_id);
         violations_code1 = (EditText) findViewById(R.id.violations_code1);
         violations_code2 = (EditText) findViewById(R.id.violations_code2);
@@ -108,6 +112,15 @@ public class ScrollingActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
         mRecyclerView.setAdapter(photoAdapter);
 
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override public void onItemClick(View view, int position) {
+                PhotoPreview.builder()
+                        .setPhotos(selectPhotos)
+                        .setCurrentItem(position)
+                        .start(ScrollingActivity.this);
+            }
+        }));
+
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +142,13 @@ public class ScrollingActivity extends AppCompatActivity {
         TrafficTicket ticket = MainApplication.sTrafficModel.listTickets(false).get(mItemID);
 
         if (ticket != null) {
+            cause_action.setText(ticket.getCauseAction());
             entry_id.setText(ticket.getEntryId());
+            int photoLength = ticket.getCarPhotos().size();
+            Log.d(this.getLocalClassName(),"-----loadData " + photoLength);
+            if (ticket.getCarPhotos().size() > 0){
+                loadPhotos(ticket.getCarPhotos());
+            }
             try {
                 violations_code1.setText(ticket.getViolationsCodes().get(0));
                 violations_code2.setText(ticket.getViolationsCodes().get(1));
@@ -159,7 +178,13 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void attemptSaveToDB() {
+        if (TextUtils.isEmpty(entry_id.getText().toString()) || entry_id.getText().toString().length() != 16){
+            entry_id.setError("编号标准为16位！");
+            Log.d(this.getLocalClassName(),"------" + entry_id.getText() + " lenth " + entry_id.getText().toString().length());
+            return;
+        }
         TrafficTicket ticket = new TrafficTicket();
+        ticket.setCauseAction(cause_action.getText().toString());
         ticket.setEntryId(entry_id.getText().toString());
         ticket.addViolationsCode(violations_code1.getText().toString());
         ticket.addViolationsCode(violations_code2.getText().toString());
@@ -178,9 +203,16 @@ public class ScrollingActivity extends AppCompatActivity {
         ticket.addCarProcessResults(car_process_result2.getText().toString());
         ticket.setCarReleaseDate(car_release_date.getText().toString());
 
-        if (MainApplication.sTrafficModel.addTicket(ticket)){
-            Toast.makeText(this,"已添加涉案记录！",Toast.LENGTH_SHORT).show();
-            finish();
+        if (mItemID != -1) {
+            if (MainApplication.sTrafficModel.updateTicket(mItemID, ticket)){
+                Toast.makeText(this,"已修改涉案记录！",Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }else {
+            if (MainApplication.sTrafficModel.addTicket(ticket)){
+                Toast.makeText(this,"已添加涉案记录！",Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
 
     }
@@ -194,6 +226,12 @@ public class ScrollingActivity extends AppCompatActivity {
                 .start(this, PhotoPicker.REQUEST_CODE);
     }
 
+    private void loadPhotos(List<String> list) {
+        selectPhotos.clear();
+        selectPhotos.addAll(list);
+        photoAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -202,9 +240,7 @@ public class ScrollingActivity extends AppCompatActivity {
             if (data != null) {
                 ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                 if (photos != null) {
-                    selectPhotos.clear();
-                    selectPhotos.addAll(photos);
-                    photoAdapter.notifyDataSetChanged();
+                    loadPhotos(photos);
                 }
                 for (String s : photos)
                     Log.d("Scrolling", "-----onActivityResult: " + s);
@@ -228,6 +264,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            attemptSaveToDB();
             return true;
         }
         return super.onOptionsItemSelected(item);

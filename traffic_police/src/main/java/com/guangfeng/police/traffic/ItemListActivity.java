@@ -93,8 +93,9 @@ public class ItemListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mItem = tickets.get(position);
             Log.d("ItemList", "------onBindView " + holder.mItem);
-            holder.mIdView.setText(String.valueOf(holder.mItem.getId()));
-            holder.mContentView.setText(holder.mItem.getCarModel());
+            String id = holder.mItem.getEntryId();
+            holder.mIdView.setText(id.substring(id.length()-5,id.length()));
+            holder.mContentView.setText(holder.mItem.getCauseAction());
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

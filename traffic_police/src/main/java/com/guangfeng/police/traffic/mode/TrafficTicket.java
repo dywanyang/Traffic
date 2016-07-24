@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class TrafficTicket {
     private int id;
+    private String causeAction;
     private String entryId;
     private List<String> violationsCodes;
     private String violationsDate;
@@ -26,6 +27,14 @@ public class TrafficTicket {
         violationsCodes = new ArrayList<>();
         carPhotos = new ArrayList<>();
         carProcessResults = new ArrayList<>();
+    }
+
+    public String getCauseAction() {
+        return causeAction;
+    }
+
+    public void setCauseAction(String causeAction) {
+        this.causeAction = causeAction;
     }
 
     public int getId() {

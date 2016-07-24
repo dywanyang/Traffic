@@ -36,6 +36,7 @@ public class TrafficModel {
         long newRowId;
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(FeedEntry.COLUMN_NAME_CAUSE_ACTION, ticket.getCauseAction());
         cv.put(FeedEntry.COLUMN_NAME_ENTRY_ID, ticket.getEntryId());
         cv.put(FeedEntry.COLUMN_NAME_VIOLATIONS_DATE, ticket.getViolationsDate());
         cv.put(FeedEntry.COLUMN_NAME_VIOLATIONS_CODES, listToString(ticket.getViolationsCodes()));
@@ -60,7 +61,35 @@ public class TrafficModel {
         return false;
     }
 
-    public void modifyTicket(){
+    public boolean updateTicket(int index, TrafficTicket ticket){
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(FeedEntry.COLUMN_NAME_CAUSE_ACTION, ticket.getCauseAction());
+        cv.put(FeedEntry.COLUMN_NAME_ENTRY_ID, ticket.getEntryId());
+        cv.put(FeedEntry.COLUMN_NAME_VIOLATIONS_DATE, ticket.getViolationsDate());
+        cv.put(FeedEntry.COLUMN_NAME_VIOLATIONS_CODES, listToString(ticket.getViolationsCodes()));
+        cv.put(FeedEntry.COLUMN_NAME_CAR_NUMBER, ticket.getCarNumber());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_MODEL, ticket.getCarModel());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_MILEAGE, ticket.getCarMileage());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_PHOTOS, listToString(ticket.getCarPhotos()));
+        cv.put(FeedEntry.COLUMN_NAME_CAR_STORE_LOCATION, ticket.getCarStoreLocation());
+        cv.put(FeedEntry.COLUMN_NAME_DUTY_POLICE, ticket.getDutyPolice());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_MANAGER, ticket.getCarManager());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_RELEASE_DATE, ticket.getCarReleaseDate());
+        cv.put(FeedEntry.COLUMN_NAME_CAR_PROCESS_RESULTS, listToString(ticket.getCarProcessResults()));
+
+        String selection = FeedEntry.COLUMN_NAME_CAR_NUMBER + " LIKE ?";
+        String[] selectionArgs = { String.valueOf(ticket.getCarNumber()) };
+        int count = db.update(FeedEntry.TABLE_NAME, cv, selection, selectionArgs);
+
+        mTickets.remove(index);
+        mTickets.add(index, ticket);
+        adapter.notifyDataSetChanged();
+        Log.d("TrafficModel","------updateTicket ID " + count + " index " + index);
+
+        if (count > 0)
+            return true;
+        return false;
 
     }
 
@@ -78,6 +107,7 @@ public class TrafficModel {
         while (cursor.moveToNext()){
             TrafficTicket ticket = new TrafficTicket();
             ticket.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+            ticket.setCauseAction(cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_CAUSE_ACTION)));
             ticket.setEntryId(cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_ENTRY_ID)));
             ticket.setViolationsDate(cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_VIOLATIONS_DATE)));
             ticket.setCarNumber(cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_CAR_NUMBER)));

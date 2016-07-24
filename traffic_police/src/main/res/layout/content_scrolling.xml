@@ -25,10 +25,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="案由："/>
+
+        <EditText android:id="@+id/cause_action"
+                  style="@style/CollectEditTextStyle"
+                  />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="强制措施凭证编号："/>
 
         <EditText android:id="@+id/entry_id"
                   style="@style/CollectEditTextStyle"
+                  android:maxLength="16"
                   android:inputType="number"/>
 
         <TextView
@@ -78,7 +88,7 @@
 
         <EditText android:id="@+id/violations_date"
                   style="@style/CollectEditTextStyle"
-                  android:inputType="datetime"/>
+                  />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,7 +172,7 @@
 
         <EditText android:id="@+id/car_release_date"
                   style="@style/CollectEditTextStyle"
-                  android:inputType="datetime"/>
+                  />
 
         <Button android:id="@+id/button_save"
                 android:layout_width="wrap_content"
