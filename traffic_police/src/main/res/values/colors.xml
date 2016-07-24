@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="highlighted_text_material_darks">#ff263238</color>
+    <color name="brand_color">#b2000000</color>
+    <color name="brand_color2">#ff8b00d8</color>
+    <color name="brand_color_80">#cc8b00d8</color>
+    <color name="brand_color_30">#4c8b00d8</color>
+    <color name="red_growth">#ffe74559</color>
+    <!--<color name="brand_color">#ff6233b4</color>
+        <color name="brand_color_80">#cc6233b4</color>-->
+    <color name="brand_second_color">#ff58d1c8</color>
+    <color name="brand_color_press_btn">#ff44129b</color>
+    <color name="btn_pressed_color">#ffebebeb</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark_full">#ff000000</color>
+    <color name="dark_holo">#b2000000</color>
+    <color name="dark_medium">#7f000000</color>
+    <color name="dark_light">#4c000000</color>
+    <color name="dark_light_light">#32000000</color>
+    <color name="dark_light_line">#26000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white_80">#ccffffff</color>
+    <color name="white_growth">#fff9f9f9</color>
+    <color name="white_background">#ffeeeeee</color>
+    <color name="white_medium">#b2ffffff</color>
+</resources>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.guangfeng.police.traffic.ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/large_text"
+        android:visibility="gone"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="强制措施凭证编号："/>
+
+        <EditText android:id="@+id/entry_id"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法行为代码1："/>
+
+        <EditText android:id="@+id/violations_code1"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法行为代码2："/>
+
+        <EditText android:id="@+id/violations_code2"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法行为代码3："/>
+
+        <EditText android:id="@+id/violations_code3"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法行为代码4："/>
+
+        <EditText android:id="@+id/violations_code4"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法行为代码5："/>
+
+        <EditText android:id="@+id/violations_code5"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="违法时间："/>
+
+        <EditText android:id="@+id/violations_date"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="datetime"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆号牌："/>
+
+        <EditText android:id="@+id/car_number"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="text"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆型号："/>
+
+        <EditText android:id="@+id/car_model"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公里数："/>
+
+        <EditText android:id="@+id/car_mileage"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆照片："/>
+
+        <Button
+            android:id="@+id/button_pick_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="存放地点："/>
+
+        <EditText android:id="@+id/car_store_location"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="责任民警："/>
+
+        <EditText android:id="@+id/duty_police"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆管理员："/>
+
+        <EditText android:id="@+id/car_manager"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="处理结果1："/>
+
+        <EditText android:id="@+id/car_process_result1"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="处理结果2："/>
+
+        <EditText android:id="@+id/car_process_result2"
+                  style="@style/CollectEditTextStyle"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆放行时间："/>
+
+        <EditText android:id="@+id/car_release_date"
+                  style="@style/CollectEditTextStyle"
+                  android:inputType="datetime"/>
+
+        <Button android:id="@+id/button_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"/>
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="200dp"
+                  android:visibility="invisible"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
